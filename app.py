@@ -4,7 +4,7 @@ from manage import *
 
 @app.route('/')
 def hello_world():
-    return '¡Hola, Mundo!'
+    return "TOXTRUST"
 
 if __name__ == '__main__':
     app.run(debug=True,port=5000)
