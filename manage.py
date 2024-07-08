@@ -13,7 +13,7 @@ def getListEndpoints():
     return data
 
 #CREATE ENDPOINT
-@app.route(f'{url_base}{version}new/<string:endpoint_name>',methods=['PUT'])
+@app.route(f'{url_base}{version}new/<string:endpoint_name>',methods=['POST'])
 @cross_origin()
 def createEndpoint(endpoint_name):
     manage.createEndpoint(endpoint_name)
