@@ -61,4 +61,13 @@ def selectRule(endpoint_name,rule):
     return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
 
 
+# CALL COMBINATION INPUT
+@app.route(f'{url_base}{version}call_combination_input/<string:endpoint_name>',methods=['PUT'])
+@cross_origin()
+def callCombinationInput(endpoint_name):
+    data = request.get_json()
+    success,message = flask.callCombinationInput(endpoint_name,data)
+    return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
+
+
 
