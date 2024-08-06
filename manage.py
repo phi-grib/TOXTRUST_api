@@ -12,6 +12,14 @@ def getListEndpoints():
     print(data)
     return data
 
+# GET ENDPOINT
+@app.route(f'{url_base}{version}endpoint_data/<string:endpoint_name>',methods=['GET'])
+@cross_origin()
+def getEndpointInformation(endpoint_name):
+    success,data = flask.returnEndpointContent(endpoint_name)
+    return json.dumps({'success':success,'data':data}),200,{'ContentType':'application/json'}
+
+
 #CREATE ENDPOINT
 @app.route(f'{url_base}{version}new/<string:endpoint_name>',methods=['POST'])
 @cross_origin()
@@ -27,9 +35,9 @@ def deleteEndpoint(endpoint_name):
     return json.dumps({'success':True}),200,{'ContentType':'application/json'}
 
 #CALL ENDPOINT INPUT
-@app.route(f'{url_base}{version}call_endpoint_input/<string:endpoint_name>',methods=['PUT'])
+@app.route(f'{url_base}{version}call_endpoint_input/<string:endpoint_name>',methods=['POST'])
 @cross_origin()
-def callEndpointInput(endpoint_name,):
+def callEndpointInput(endpoint_name):
     data = request.get_json()
     success, message = flask.callEndpointInput(endpoint_name,data)
 
