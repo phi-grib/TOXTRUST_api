@@ -44,11 +44,11 @@ def callEndpointInput(endpoint_name):
     return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
 
 # CALL EVIDENCE INPUT
-@app.route(f'{url_base}{version}call_evidence_input/<string:endpoint_name>/<string:_id>',methods=['PUT'])
+@app.route(f'{url_base}{version}call_evidence_input/<string:endpoint_name>',methods=['POST'])
 @cross_origin()
-def callEvidenceInput(endpoint_name,_id):
+def callEvidenceInput(endpoint_name):
     data = request.get_json()
-    success,message = flask.callEvidenceInput(endpoint_name,_id,data)
+    success,message = flask.callEvidenceInput(endpoint_name,data)
 
     return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
 
