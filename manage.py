@@ -19,6 +19,12 @@ def getEndpointInformation(endpoint_name):
     success,data = flask.returnEndpointContent(endpoint_name)
     return json.dumps({'success':success,'data':data}),200,{'ContentType':'application/json'}
 
+# GET EVIDENCES
+@app.route(f'{url_base}{version}evidences/<string:endpoint_name>',methods=['GET'])
+@cross_origin()
+def getEvidences(endpoint_name):
+    success,data = flask.returnEvidenceInput(endpoint_name)
+    return json.dumps({'success':success,'data':data}),200,{'ContentType':'application/json'}
 
 #CREATE ENDPOINT
 @app.route(f'{url_base}{version}new/<string:endpoint_name>',methods=['POST'])
@@ -28,11 +34,11 @@ def createEndpoint(endpoint_name):
     return json.dumps({'success':True}),200,{'ContentType':'application/json'}
 
 #DELETE ENDPOINT
-@app.route(f'{url_base}{version}delete/<string:endpoint_name>',methods=['DELETE'])
+@app.route(f'{url_base}{version}delete_endpoint/<string:endpoint_name>',methods=['DELETE'])
 @cross_origin()
 def deleteEndpoint(endpoint_name):
-    manage.removeEndpoint(endpoint_name)
-    return json.dumps({'success':True}),200,{'ContentType':'application/json'}
+    success,data = manage.removeEndpoint(endpoint_name)
+    return json.dumps({'success':success,'data':data}),200,{'ContentType':'application/json'}
 
 #CALL ENDPOINT INPUT
 @app.route(f'{url_base}{version}call_endpoint_input/<string:endpoint_name>',methods=['POST'])
