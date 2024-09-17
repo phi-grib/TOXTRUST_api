@@ -60,7 +60,7 @@ def callEvidenceInput(endpoint_name):
 
 
 # CALL DECISION INPUT
-@app.route(f'{url_base}{version}call_decision_input/<string:endpoint_name>',methods=['PUT'])
+@app.route(f'{url_base}{version}call_decision_input/<string:endpoint_name>',methods=['POST'])
 @cross_origin()
 def callDecisionInput(endpoint_name):
     data = request.get_json()
