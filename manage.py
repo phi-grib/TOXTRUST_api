@@ -2,6 +2,7 @@ from flask import request,json
 from settings import *
 from toxtrust import manage
 from toxtrust import flask
+from functions import *
 import json
 
 # GET LIST OF ENDPOINTS
@@ -9,7 +10,6 @@ import json
 @cross_origin()
 def getListEndpoints():
     data = manage.listEndpoints()
-    print(data)
     return data
 
 # GET ENDPOINT
@@ -24,7 +24,8 @@ def getEndpointInformation(endpoint_name):
 @cross_origin()
 def getEvidences(endpoint_name):
     success,data = flask.returnEvidenceInput(endpoint_name)
-    return json.dumps({'success':success,'data':data}),200,{'ContentType':'application/json'}
+    dataFormatted = addProbabilities(endpoint_name,data)
+    return json.dumps({'success':success,'data':dataFormatted}),200,{'ContentType':'application/json'}
 
 #CREATE ENDPOINT
 @app.route(f'{url_base}{version}new/<string:endpoint_name>',methods=['POST'])
@@ -66,22 +67,3 @@ def callDecisionInput(endpoint_name):
     data = request.get_json()
     success,message = flask.callDecisionInput(endpoint_name,data)
     return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
-
-# SELECT RULE
-@app.route(f'{url_base}{version}select_rule/<string:endpoint_name>/<string:rule>',methods=['GET'])
-@cross_origin()
-def selectRule(endpoint_name,rule):
-    success,message = flask.selectRule(endpoint_name,rule)
-    return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
-
-
-# CALL COMBINATION INPUT
-@app.route(f'{url_base}{version}call_combination_input/<string:endpoint_name>',methods=['PUT'])
-@cross_origin()
-def callCombinationInput(endpoint_name):
-    data = request.get_json()
-    success,message = flask.callCombinationInput(endpoint_name,data)
-    return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
-
-
-

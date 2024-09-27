@@ -7,7 +7,7 @@ import json
 @app.route(f'{url_base}{version}evidence_result/<string:endpoint_name>/<string:evidence_name>',methods=['GET'])
 @cross_origin()
 def getEvidenceResult(endpoint_name,evidence_name):
-    success,data = flask.returnComputedResult(endpoint_name,evidence_name)
+    success,data = flask.returnComputedResult(endpoint_name,evidence_name,selection)
     return json.dumps({'success':success,'data':data}),200,{'ContentType':'application/json'}
 
 #DELETE EVIDENCE
@@ -23,8 +23,6 @@ def deleteEvidence(endpoint_name,evidence_name):
 def getEvidenceImagePath(endpoint_name,evidence_name):
     success,data = flask.pathEvidencePlot(endpoint_name,evidence_name)
     if success:
-        print("aqui esta")
-        print(data)
         return send_file(data,as_attachment=True)
     else:
         return json.dumps(f'Failed to get link {link_name}, with error {repo_path}'), 500, {'ContentType':'application/json'} 
