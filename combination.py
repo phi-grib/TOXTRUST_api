@@ -8,7 +8,9 @@ import json
 @app.route(f'{url_base}{version}select_rule/<string:endpoint_name>',methods=['POST'])
 @cross_origin()
 def selectRule(endpoint_name):
-    success,message = flask.selectRule(endpoint_name,rule)
+    data = request.get_json()
+    factor = data.get('factor')
+    success,message = flask.selectRule(endpoint_name,data['rule'],factor)
     return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
 
 # SHOULD COMBINE INPUT
