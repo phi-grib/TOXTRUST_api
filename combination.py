@@ -21,4 +21,25 @@ def callCombinationInput(endpoint_name):
     success,message = flask.shouldCombineInput(endpoint_name,listEvidences)
     return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
 
+# RUN COMBINE
+@app.route(f'{url_base}{version}run_combine/<string:endpoint_name>',methods=['GET'])
+@cross_origin()
+def runCombine(endpoint_name):
+    success,message = flask.runCombine(endpoint_name)
+    print("success:",success)
+    print("message:",message)
+    return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
+
+
+#PATH COMBINATION IMAGE
+@app.route(f'{url_base}{version}combination_image_path/<string:endpoint_name>',methods=['GET'])
+@cross_origin()
+def getCombinationImagePath(endpoint_name):
+    success,data = flask.pathCombinationPlot(endpoint_name)
+    print("combination path")
+    print(success)
+    if success:
+        return send_file(data,as_attachment=True)
+    else:
+        return json.dumps(f'Failed to get link'), 500, {'ContentType':'application/json'} 
 

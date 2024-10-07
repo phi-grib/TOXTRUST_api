@@ -26,15 +26,3 @@ def getEvidenceImagePath(endpoint_name,evidence_name):
         return send_file(data,as_attachment=True)
     else:
         return json.dumps(f'Failed to get link'), 500, {'ContentType':'application/json'} 
-
-
-# GET COMBINATION IMAGE PATH
-@app.route(f'{url_base}{version}combination_image_path/<string:endpoint_name>/<string:evidence_name>',methods=['GET'])
-@cross_origin()
-def getCombinationImagePath(endpoint_name):
-    success,data = flask.pathCombinationPlot(endpoint_name)
-    if success:
-        return send_file(data,as_attachment=True)
-    else:
-        return json.dumps(f'Failed to get link'), 500, {'ContentType':'application/json'} 
-
