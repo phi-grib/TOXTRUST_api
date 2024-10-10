@@ -43,3 +43,14 @@ def getCombinationImagePath(endpoint_name):
     else:
         return json.dumps(f'Failed to get link'), 500, {'ContentType':'application/json'} 
 
+#Weight of evidence
+@app.route(f'{url_base}{version}WoEinput/<string:endpoint_name>/<string:WoE>',methods=['GET'])
+@cross_origin()
+def shouldWoeInput(endpoint_name,WoE):
+    if WoE.lower() in ["true","1"]:
+        WoE = True
+    else:
+        WoE = False
+    success,message = flask.shouldWoeInput(endpoint_name,WoE)
+    return json.dumps({'success':success,'message':message}),200,{'ContentType':'application/json'}
+
