@@ -9,7 +9,7 @@ import json
 @app.route(f'{url_base}{version}list',methods=['GET'])
 @cross_origin()
 def getListEndpoints():
-    data = manage.listEndpoints()
+    data = manage.listEndpointsDetails()
     return data
 
 # GET ENDPOINT
