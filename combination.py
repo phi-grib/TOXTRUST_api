@@ -62,4 +62,9 @@ def get_combination_graph_data(endpoint_name):
     print(data)
     return json.dumps({'success':success,'data':data}),200,{'ContentType':'application/json'}
     
-
+# delete combination
+@app.route(f'{url_base}{version}delete_combination/<string:endpoint_name>',methods=['DELETE'])
+@cross_origin()
+def deleteCombination(endpoint_name):
+    success,data = flask.removeCombination(endpoint_name)
+    return json.dumps({'success':success,'data':data}),200,{'ContentType':'application/json'}
