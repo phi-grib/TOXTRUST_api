@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS, cross_origin
 
 UPLOAD_FOLDER = './'
@@ -8,3 +8,4 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 url_base = "/toxtrust/"
 version = "v1/"
+
